@@ -1,0 +1,1378 @@
+
+<div class="right_content_area new_right_content de-view" [@FadeAnimation]>
+
+  <!-- <h3>Building Details</h3>       /* added by Saranya for collapse panel UI-- Started */-->
+  <div class="user-table-wrapper">
+    <div class="box-title">
+      Building Details
+      <div class="button-right">
+
+       <button class="box_btn boundryofPropery" id="createNewBuilding" (click)="addBuilding()">Create New
+          <svg fill="#3F3FE6" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+            <g id="Add" transform="translate(-997.5 -115.5)">
+              <line id="Line_86" data-name="Line 86" y2="10" transform="translate(1003.5 116.5)" fill="none"
+                stroke="#3f3fe6" stroke-linecap="round" stroke-width="2" />
+              <line id="Line_87" data-name="Line 87" y2="10" transform="translate(1008.5 121.5) rotate(90)" fill="none"
+                stroke="#3f3fe6" stroke-linecap="round" stroke-width="2" />
+            </g>
+          </svg>
+        </button> 
+      </div>
+    </div>
+  </div>
+  <!-- /* added by Saranya for collapse panel UI-- Endeed */-->
+  <div class="process-row">
+  <div class="process-label">
+    Structure of Building
+  </div>
+  <div class="process-input">
+    <input type='text' class="form-control" id="StructureofBuildingOthers"
+      [(ngModel)]="StructureofBuildingOthers" type="text" autocomplete="false"
+      placeholder="Structure of Building">
+  </div>
+</div>
+  <div class="process-form-wrapper">
+    <!-- /* added by Saranya for collapse panel UI-- Started */-->
+    <div class="accordion" id="accordionExample">
+      <div *ngFor="let item of repeatableFields; let r = index">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id=heading{{r}}>
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="'#collapse'+r" [attr.data-bs-target]="'#collapse'+r" aria-expanded="false"
+              [attr.aria-controls]="'collapse'+r" *ngIf="repeatableFields.length>=1">
+              <span *ngIf="!(r !== 0 && updateBuilding[r])" class="building_structure">{{repeatableFields[r].StructureofBuilding}}</span>
+              <div style="display: flex;width: 80%;align-items: inherit;" *ngIf="r !== 0 && updateBuilding[r]">
+                <input class="form-control" style="width: auto;" (input)="validateStructureName()" type="text" [(ngModel)]="repeatableFields[r].StructureofBuilding">
+                <button style="margin-left: 10px" class="box_btn" data-bs-toggle="modal" (click)="updateStructure(r,false)">update</button>
+              </div>
+              
+              <div class="rightside-accordion">
+                <button class="box_btn" style="
+                margin-right: 10px;"  data-bs-toggle="modal" (click)="updateStructure(r,true)"
+                  data-bs-target="#createModal">Edit
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#3F3FE6">
+
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                  </svg>
+                </button>
+                <button class="box_btn boundryofPropery deletebtn"  data-bs-toggle="modal"
+                  data-bs-target="#createModal" (click)="deleteBuilding(r)">Delete
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17.038" viewBox="0 0 17 17.038">
+                    <g id="Delete" transform="translate(-16.83 -16.78)">
+                      <path id="Path_24" data-name="Path 24"
+                        d="M33.061,19.212H28.3V18.83a2.05,2.05,0,0,0-2.05-2.05H24.41a2.05,2.05,0,0,0-2.05,2.05v.382H17.6a.769.769,0,1,0,0,1.538h1.525l.018,9.738a3.331,3.331,0,0,0,3.331,3.331h5.715a3.331,3.331,0,0,0,3.331-3.331l.018-9.738h1.525a.769.769,0,1,0,0-1.538ZM23.9,18.83a.513.513,0,0,1,.513-.513h1.84a.513.513,0,0,1,.513.513v.382H23.9Zm6.084,11.647a1.794,1.794,0,0,1-1.794,1.794H22.473a1.794,1.794,0,0,1-1.794-1.794l-.018-9.738H30Z"
+                        fill="#3F3FE6" />
+                      <path id="Path_25" data-name="Path 25"
+                        d="M41.769,41.53A.769.769,0,0,0,41,42.3v5.1a.769.769,0,1,0,1.538,0V42.3A.769.769,0,0,0,41.769,41.53Z"
+                        transform="translate(-17.976 -18.408)" fill="#3F3FE6" />
+                      <path id="Path_26" data-name="Path 26"
+                        d="M53.769,41.53A.769.769,0,0,0,53,42.3v5.1a.769.769,0,1,0,1.538,0V42.3A.769.769,0,0,0,53.769,41.53Z"
+                        transform="translate(-26.901 -18.408)" fill="#3F3FE6" />
+                    </g>
+                  </svg>
+                </button> 
+              </div>
+            </button>
+          </h2>
+          <div id=collapse{{r}} class="accordion-collapse collapse" [attr.aria-labelledby]="'heading'+r"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+             <!--  <div class="process-row">
+                <div class="process-label">
+                  Structure of Building
+                </div>
+                <div class="process-input">
+                  <select class="form-select" id="StructureofBuilding"
+                    [(ngModel)]="repeatableFields[r].StructureofBuilding" (change)="show_hide(1,r)"
+                    aria-label="Default select example" disabled>
+                    <option selected>Main Building</option> -->
+                    <!-- comment by Naveen for demo changes-->
+                    <!-- <option disabled selected>--Select--</option>
+                    <option *ngFor="let Structure of BuildingStructure">
+                      {{Structure}}
+                    </option> -->
+                  <!-- </select>
+
+                </div>
+              </div> -->
+               <!--   <div *ngIf="repeatableFields[r].StructureofBuilding=='Others'" class="process-row">
+             <div class="process-label">
+                </div>
+                <div class="process-input">
+                  <input type='text' class="form-control" id="StructureofBuildingOthers"
+                    [(ngModel)]="repeatableFields[r].StructureofBuildingOthers" type="text" autocomplete="false"
+                    placeholder="Structure of Building">
+                </div>
+              </div> -->
+              <div class="process-row">
+                <div class="process-label">
+                  Shape of Building
+                </div>
+                <div class="process-input">
+                  <div class="radio">
+                    <div class="radio_row">
+                      <input type="radio" name="Shape{{ r }}" [(ngModel)]="repeatableFields[r].Shape" value="Regular"
+                        [checked]="true" (change)="showTable($event, r)" [id]="'Regular' + r">
+                      <label [for]="'Regular' + r">Regular</label>
+                    </div>
+                    <div class="radio_row">
+                      <input type="radio" name="Shape{{ r }}" value="Polygon" [(ngModel)]="repeatableFields[r].Shape"
+                        [id]="'Polygon' + r" (change)="showTable($event, r)">
+                      <label [for]="'Polygon' + r">Polygon</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+      <div  id="tabledynamic{{r}}" *ngIf="repeatableFields[r].Shape == 'Regular'">
+        <div class="process-row" style="display: block;">
+          <div class="process-label" *ngIf="repeatableFields[r].StructureofBuilding!='Others'"  >
+            Dimension of {{repeatableFields[r].StructureofBuilding}}
+          </div>
+          <div class="process-label" *ngIf="repeatableFields[r].StructureofBuilding=='Others'"  >
+            Dimension of {{repeatableFields[r].StructureofBuildingOthers}}
+          </div>
+          <div class="tabledynamic">
+          <!-- // Dynamic table Code added for Release 44.1 -->
+          <div class="process-table-full" *ngFor="let item of repeatableFields[r].rows; let a = index">
+            <table>
+              <thead>
+                <tr>
+                  <th class="left-static" rowspan='2'></th>
+                  <th class="parent-head" colspan='2'><strong>As per Actuals</strong></th>
+                  <th class="parent-head" colspan='2'><strong>As per Sale Deed</strong></th>
+                  <th class="parent-head" colspan='2'><strong>Converted Dimensions<br> (Sale deed)</strong></th>
+                  <th class="parent-head" colspan='2'><strong>Variation</strong></th>
+                  <th class="parent-head" rowspan='2'><strong>Remarks</strong></th>
+                </tr>
+                <tr>
+                  <th>Dimension</th>
+                  <th>UOM<br> (R.ft/R.M)</th>
+                  <th>Dimension</th>
+                  <th>UOM</th>
+                  <th>Dimension</th>
+                  <th>UOM<br> (R.ft/R.M)</th>
+                  <th>Dimension</th>
+                  <th>UOM<br> (R.ft/R.M)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of repeatableFields[r].dimensionofProperty[a]; let i = index">
+                  <td class="left-static">{{item.Direction}}</td>
+
+                  <td *ngIf="i!=4"><input type="text" maxlength="10" class="table-input boundryofPropery" style="text-align: right;font-size: 15px;"
+                      onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                      id="dimensionAsPerActual{{a}}{{i}}"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].DimensionAsPerActual"
+                      (change)="changeFormat(r,a,i,1);dimensionActualCal(a,i,r);"></td>
+                  <td *ngIf="i==4"><input disabled type="text" maxlength="10"  style="text-align: right;font-size: 15px;" class="table-input boundryofPropery"
+                      onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                      id="dimensionAsPerActual{{a}}{{i}}"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].DimensionAsPerActual">
+                  </td>
+                  <td *ngIf="i==0"> <select class="form-select"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].UnitAsPerActual"
+                      id="UnitAsPerActual{{a}}{{i}}" (change)=UnitAsPerActual($event,a,i,1,r);
+                      aria-label="Default select example">
+                      <option selected disabled value="">--Select--</option>
+                      <option value="R.ft">R.ft</option>
+                      <option value="R.M">R.M</option>
+                    </select>
+                  </td>
+                  <td *ngIf="i!=0"><input type="text" disabled class="table-input boundryofPropery"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].UnitAsPerActual"
+                      id="UnitAsPerActual{{a}}{{i}}" class="table-input"></td>
+                  <td *ngIf="i!=4"><input type="text" maxlength="10" class="table-input boundryofPropery" style="text-align: right;font-size: 15px;"   maxlength="10"
+                      class="table-input" id="DimensionAsPerDeed{{a}}{{i}}"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].DimensionAsPerDeed"
+                      autocomplete="off"
+                      onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                      onpaste="return false;" ondrop="return false;"
+                      (change)="DimensionAsPerDeedCalc(a,i,r);UnitAsPerSaleValue($event,a,i,2,r);changeFormat(r,a,i,2)"></td>
+                  <td *ngIf="i==4"><input type="text"  disabled class="table-input boundryofPropery" style="text-align: right;font-size: 15px;" maxlength="10"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].DimensionAsPerDeed"
+                      class="table-input" id="DimensionAsPerDeed{{a}}{{i}}" autocomplete="off"
+                      onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                      onpaste="return false;" ondrop="return false;" (change)="DimensionAsPerDeedCalc(a,i,r)"></td>
+
+
+                  <td *ngIf="i==0">
+                    <select class="form-select" id="UnitAsPerSale{{a}}{{i}}" 
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].UnitAsPerSale"
+                      (change)="appendValue($event,a,i,1,r);UnitAsPerSaleValue($event,a,i,0,r);"
+                      aria-label="Default select example">
+                      <option selected disabled value="">--Select--</option>
+                      <option *ngFor="let unit of UOM">
+                        {{unit}}
+                      </option>
+                    </select>
+                  </td>
+                  <td *ngIf="i!=0"><input type="text" disabled class="table-input boundryofPropery"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].UnitAsPerSale" type="text"
+                      maxlength="10" class="table-input" id="UnitAsPerSale{{a}}{{i}}" autocomplete="off"
+                      onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                      onpaste="return false;" ondrop="return false;"></td>
+                  <!-- <td><input type="text"  disabled class="table-input boundryofPropery"  [(ngModel)]="dimensionofProperty[a][i].ConvertedSales" id="convertedSales{{a}}{{i}}"class="table-input"></td> -->
+                  <td><input type="text" disabled class="table-input boundryofPropery" maxlength="10"
+                     
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].ConvertedSales"
+                      id="convertedSales{{r}}{{a}}{{i}}" style="text-align: right;font-size: 15px;"  class="table-input"  (change)="variationCalc(a,i,1,r);changeFormat(r,a,i,3)"   ></td>
+                  <td><input type="text" disabled class="table-input boundryofPropery"
+                    
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].ConvertedUnit"
+                      id="convertedUnit{{a}}{{i}}" class="table-input"></td>
+                  <td><input type="text" disabled class="table-input boundryofPropery" 
+                   
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].Variation"  style="text-align: right;font-size: 15px;" 
+                      id="variation{{r}}{{a}}{{i}}"
+                      class="table-input"></td>
+                  <td><input type="text" disabled class="table-input boundryofPropery"
+                  
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].VariationUnit"
+                      id="variationUnit{{a}}{{i}}" class="table-input"></td>
+                  <td><input type="text" class="table-input boundryofPropery"
+                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].Remarks" id="tableRemarks{{a}}{{i}}"
+                      class="table-input">
+                  </td>
+                  <div class="modal createModal{{r}} newModel slide-in-bottom" tabindex="-1" id="createModal{{r}}" role="dialog"
+                    data-backdrop="static">
+                    <div class="modal-dialog" role="document">
+                      <!-- create form modal -->
+
+                      <div class="modal-content">
+                        <button type="button" class="close" (click)="closeForm(r)">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="create_form" [@FadeAnimation]>
+                          <div class="modalheader">
+                            <h5 class="modal-title">Unit of Measurement</h5>
+
+                          </div>
+                          <div class="modal-body">
+                            <div class="create_row overflow-auto">
+                              <div class="create_dropdown">
+                                <div class="form-group">
+                                  <div class="labelon-top">
+                                    <label>Unit of Measurement</label>
+                                    <input class="form-control" type="text" autocomplete="false"
+                                      placeholder="Unit of Measurement" id="UOM{{r}}{{a}}{{i}}"
+                                      [(ngModel)]="repeatableFields[r].dimensionofProperty[a][i].UOM">
+                                  </div>
+                                </div>
+                              </div>
+                            
+                            </div>
+                            <div class="create_row">
+                              <div class="button-row">
+                                <button type="submit" class=" save-btn"
+                                  (click)="saveUOM(r,a,i)">Save</button>
+                                <button type="submit" (click)="Reset(a,i,r)" class=" reset-btn">Reset</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- create form modal -->
+                    </div>
+                  </div>
+                </tr>
+              </tbody>
+            </table><br>
+            <!-- <div class="table-row process-table-full"></div>
+            <button class="add-row-icon" id="addTable" (click)="addTable(a,r)">Add</button>
+            <button class="delete-icon" id="deleteBuildingRow" (click)="deleteBuildingRow(a, r)">Delete </button> -->
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div id="tabledynamicPolygon{{r}}" *ngIf="repeatableFields[r].Shape == 'Polygon'">
+        <div class="process-row" style="display: block;">
+          <div class="process-label" *ngIf="repeatableFields[r].StructureofBuilding!='Others'"  >
+            Dimension of {{repeatableFields[r].StructureofBuilding}}
+          </div>
+          <div class="process-label" *ngIf="repeatableFields[r].StructureofBuilding=='Others'"  >
+            Dimension of {{repeatableFields[r].StructureofBuildingOthers}}
+          </div>
+        <div class="process-table-full" *ngFor="let item of row_; let a = index" >
+          <table >
+            <thead>
+              <tr>
+                <th class="left-static" rowspan='2'></th>
+                <th class="left-static" rowspan='2'>Sides</th>
+                <th class="parent-head" colspan='2'><strong>As per Actuals</strong></th>
+                <th class="parent-head" colspan='2'><strong>As per Sale Deed</strong></th>
+                 <th class="parent-head" colspan='2'><strong>Converted Dimensions<br> (Sale deed)</strong></th> 
+                 <th class="parent-head"colspan='2'><strong>Variation</strong></th> 
+                 <th class="parent-head"rowspan='2'><strong>Remarks</strong></th> 
+                </tr>
+              <tr>
+                
+        
+                <th>Dimension</th>
+                <th>UOM<br> (R.ft/R.M)</th>
+                <th>Dimension</th>
+                <th>UOM</th>
+                <th>Dimension</th>
+                <th>UOM<br> (R.ft/R.M)</th>
+                <th>Dimension</th>
+                <th>UOM<br> (R.ft/R.M)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of rowforPolygon[a]; let i = index">
+                <td class="left-static">{{item.Direction}}</td>
+                <td><input  type="text" class="table-input boundryofPropery"  
+                  id="rowforPolygon{{a}}{{i}}" [(ngModel)]="rowforPolygon[a][i].Sides" ></td>
+                <td *ngIf="i!=8"><input  type="text" class="table-input boundryofPropery" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                  id="rowforPolygon{{a}}{{i}}" [(ngModel)]="rowforPolygon[a][i].DimensionAsPerActual"  ></td>
+                  <td *ngIf="i==8"><input   disabled type="text" class="table-input boundryofPropery" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                    id="rowforPolygon{{a}}{{i}}" [(ngModel)]="rowforPolygon[a][i].DimensionAsPerActual" ></td>
+                <td *ngIf="i==0"> <select
+                class="form-select" [(ngModel)]="rowforPolygon[a][i].UnitAsPerActual" 
+                id="UnitAsPerActual{{a}}{{i}}" 
+                aria-label="Default select example">
+                <option selected disabled value="">--Select--</option>
+                <option  value="R.ft">R.ft</option>
+                <option value="R.M">R.M</option>
+              </select>
+            </td>
+                <td *ngIf="i!=0"><input type="text" disabled class="table-input boundryofPropery"   [(ngModel)]="rowforPolygon[a][i].UnitAsPerActual"  id="UnitAsPerActual{{a}}{{i}}"class="table-input" ></td> 
+                <td *ngIf="i!=8"><input type="text" class="table-input boundryofPropery" maxlength="10" class="table-input" id="DimensionAsPerDeed{{a}}{{i}}" [(ngModel)]="rowforPolygon[a][i].DimensionAsPerDeed"    autocomplete="off"
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"  
+                  onpaste="return false;" ondrop="return false;"      ></td>
+                  <td *ngIf="i==8"><input type="text" disabled class="table-input boundryofPropery"    maxlength="10"  [(ngModel)]="rowforPolygon[a][i].DimensionAsPerDeed"  class="table-input" id="DimensionAsPerDeed{{a}}{{i}}" autocomplete="off"
+                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"  
+                    onpaste="return false;" ondrop="return false;" ></td>
+              
+              
+                    <td *ngIf="i==0">
+                  <select
+                  class="form-select"
+                  id="UnitAsPerSale{{a}}{{i}}"   [(ngModel)]="rowforPolygon[a][i].UnitAsPerSale" 
+                  aria-label="Default select example">
+                  <option selected disabled value="">--Select--</option>
+                  <option  *ngFor="let unit of UOM">
+                    {{unit}}
+                  </option>
+                </select></td>
+                  <td *ngIf="i!=0"><input type="text" disabled class="table-input boundryofPropery"   [(ngModel)]="rowforPolygon[a][i].UnitAsPerSale" type="text"  maxlength="10" class="table-input" id="UnitAsPerSale{{a}}{{i}}" autocomplete="off"
+                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                    onpaste="return false;" ondrop="return false;"></td>
+
+                  <td><input type="text" disabled class="table-input boundryofPropery"   [(ngModel)]="rowforPolygon[a][i].ConvertedSales" id="convertedSales{{a}}{{i}}"class="table-input"></td>
+                  <td><input type="text" disabled class="table-input boundryofPropery"  [(ngModel)]="rowforPolygon[a][i].ConvertedUnit" id="convertedUnit{{a}}{{i}}"class="table-input"></td>
+                  <td><input type="text"disabled  class="table-input boundryofPropery"   [(ngModel)]="rowforPolygon[a][i].Variation" id="variation{{a}}{{i}}" class="table-input"></td>
+                  <td><input type="text" disabled class="table-input boundryofPropery"   [(ngModel)]="rowforPolygon[a][i].VariationUnit"  id="variationUnit{{a}}{{i}}"class="table-input"></td>
+                  <td><input type="text"  class="table-input boundryofPropery"   [(ngModel)]="rowforPolygon[a][i].Remarks" id="tableRemarks{{a}}{{i}}"class="table-input"></td>
+                  
+              </tr>
+            </tbody>
+          </table><br>
+        <!-- <div class="table-row process-table-full"></div>
+          <button class="add-row-icon" id="addTable" (click)="addPolygonTable(a)">Add Row</button>
+          <button  class="delete-icon" id="deleteBuildingRow" (click)="deleteBuildingRow(a)">Delete Row</button>  -->
+           </div>
+       </div>
+
+      </div>
+
+      <!-- // old Code for static table format has been removed for Release 44.1
+        <div class="process-row">
+        <div class="process-label">
+          Boundaries of the Property
+        </div>
+        <div class="process-table-full">
+          <table>
+            <tr>
+              <th class="left-static" rowspan='2'></th>
+              <th class="parent-head" colspan='2'><strong>Property</strong></th>
+              <th class="parent-head" colspan='2'><strong>Dimension</strong></th>
+            </tr>
+            <tr>
+              <th>As Per Deed</th>
+              <th>Actual</th>
+              <th>As Per Deed</th>
+              <th>Actual</th>
+            </tr>
+            <tr>
+              <td class="left-static">North</td>
+              <td><input  [(ngModel)]="repeatableFields[r].northAsPerDeedP" type="text" class="table-input" id="NorthAsPerDeedP">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].northActualP" type="text" class="table-input" id="NorthActualP"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].northAsPerDeedD" type="text" maxlength="10" class="table-input" id="NorthAsPerDeedD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].northActualD" type="text"  maxlength="10" class="table-input" id="NorthActualD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+            </tr>
+            <tr>
+              <td class="left-static">South</td>
+              <td><input  [(ngModel)]="repeatableFields[r].southAsPerDeedP" type="text" class="table-input" id="SouthAsPerDeedP">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].southActualP" type="text" class="table-input" id="SouthActualP"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].southAsPerDeedD" type="text" maxlength="10" class="table-input" id="SouthAsPerDeedD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].southActualD" type="text" maxlength="10" class="table-input" id="SouthActualD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+            </tr>
+            <tr>
+              <td class="left-static">East</td>
+              <td><input  [(ngModel)]="repeatableFields[r].eastAsPerDeedP" type="text" class="table-input" id="EastAsPerDeedP"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].eastActualP" type="text" class="table-input" id="EastActualP"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].eastAsPerDeedD" type="text" maxlength="10" class="table-input" id="EastAsPerDeedD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].eastActualD" type="text" maxlength="10" class="table-input" id="EastActualD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+            </tr>
+            <tr>
+              <td class="left-static">West</td>
+              <td><input  [(ngModel)]="repeatableFields[r].westAsPerDeedP" type="text" class="table-input" id="WestAsPerDeedP"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].westActualP" type="text" class="table-input" id="WestActualP"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].westAsPerDeedD" type="text" maxlength="10" class="table-input" id="WestAsPerDeedD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].westActualD" type="text" maxlength="10" class="table-input" id="WestActualD" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div> -->
+      <!-- ! Added for release46.1 Demo 10-07-23 by Franklin start here -->
+      <div class="process-row">
+        <div class="process-label two-lines">
+          Total Extent of the Building (in Sq. Ft)
+        </div>
+        <div class="process-input">
+          <input class="form-control" type="text" maxlength="17" onpaste="return false;" ondrop="return false;"
+            onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" (input)="onInputChange($event)"
+            [(ngModel)]="repeatableFields[r].extentofBuilding" id="extentofBuilding{{r}}" autocomplete="off"
+            (change)="checkcurrency('extentofBuilding',$event , r, this)" value="">
+        </div>
+      </div>
+      <!-- ! comment for release46.1 Demo 10-07-23 by Franklin End here -->
+      <div class="process-row" *ngIf="this.repeatableFields[r].StructureofBuilding == 'Main Building'">
+        <div class="process-label two-lines">
+          Is the Building Constructed Strictly According to the Sanctioned Plan?
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].buildConstruct" (change)="show_hide(0,r)"
+                value="Yes" [id]="'buildConstructYes' + r">
+              <label [for]="'buildConstructYes' + r">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].buildConstruct" (change)="show_hide(0,r)"
+                value="No" [id]="'buildConstructNo' + r">
+              <label [for]="'buildConstructNo' + r">No</label>
+            </div>
+          </div>
+          <div class="process-input" *ngIf="this.repeatableFields[r].buildConstruct == 'No'">
+            <div class="process-input">
+              <textarea [(ngModel)]="repeatableFields[r].buildConstructtxt" id="buildConstructtxt{{r}}"
+                class="form-control" type="text" autocomplete="false"
+                placeholder="Violations and Deviations"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          If shape is irregular, Provide the sketch (Pdf/JPG)
+        </div>
+        <div class="process-input">
+          <div class="image-details">
+            <div class="upload-file">
+              <div class="input-file-wrapper">
+                <input type='file' id="ExtraDocuments{{r}}" single accept="image/jpg,image/jpeg,application/pdf"
+                   (change)="fileuploadName1($event,1,r)" multiple
+                  class="upload_btn">
+                <label id="idfile-upload6{{r}}" for="ExtraDocuments{{r}}" class="upload-btn">Browse</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- *ngIf="this.irregular" *ngIf="repeatableFields[r]['dynamicFile1']"-->
+      <div  class="process-row" *ngIf="repeatableFields[r]['dynamicFile1'].length != 0">
+        <div class="process-label">
+        </div>
+        <div class="attachment-div">
+          <div class="full-row added" *ngFor="let dynamic of repeatableFields[r]['dynamicFile1']; let i = index" [@FadeAnimation]>
+            <div class="">
+              <span id="filename" class="cpointer" for="Attachment" (click)="View1(i,1, r)">{{
+                repeatableFields[r]['dynamicFile1'][i]?.fileName
+                }}</span>
+              <button type="button" (click)="closeUpload11(i,1, r)" class="btn-close" id="clsbtn1"
+                aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="process-row">
+        <div class="process-label">
+          Extent of Site (sq. ft)
+        </div>
+        <div class="process-table">
+          <table>
+            <tr>
+              <th class="left-static"></th>
+              <th class="parent-head">As Per Deed</th>
+              <th class="parent-head">Actual</th>
+            </tr>
+            <tr>
+              <td class="left-static">Extent</td>
+              <td><input  [(ngModel)]="repeatableFields[r].extentAsPerDeed" type="text" maxlength="10" class="table-input" id="ExtentAsPerDeed" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+              <td><input  [(ngModel)]="repeatableFields[r].extentActual" type="text" maxlength="10" class="table-input" id="ExtentActual" autocomplete="off"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                onpaste="return false;" ondrop="return false;">
+              </td>
+            </tr>
+            <tr>
+              <td class="left-static">Unit</td>
+              <td><input  [(ngModel)]="repeatableFields[r].unitAsPerDeed" type="text"  class="table-input" id="UnitAsPerDeed"></td>
+              <td><input  [(ngModel)]="repeatableFields[r].unitActual" type="text" class="table-input" id="UnitActual"></td>
+            </tr>
+
+          </table>
+        </div>
+      </div>  -->
+      <div class="process-row">
+        <div class="process-label">
+          Whether the Building is Insured
+        </div>
+        <div class="process-input">
+          <!-- <select class="form-select" id="BuildingInsured"  [(ngModel)]="repeatableFields[r].buildingInsured"
+            aria-label="Default select example">
+            <option selected value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select> -->
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].BuildingInsured" name="buildingInsured{{r}}" value="Yes"
+                [id]="'buildingInsuredYes' + r" (change)="ShowHideInsured($event, 'buildingInsured', r, this)" checked>
+              <label [for]="'buildingInsuredYes' + r">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="buildingInsured{{ r }}" [(ngModel)]="repeatableFields[r].BuildingInsured" value="No"
+                [id]="'buildingInsuredNo' + r" (change)="ShowHideInsured($event, 'buildingInsured', r, this)">
+              <label [for]="'buildingInsuredNo' + r">No</label>
+            </div>
+            <div id="divInsuredValue" class="process-input">
+              <input id="buildingInsured{{r}}" class="form-control" *ngIf="repeatableFields[r].BuildingInsured == 'Yes'"
+                type="text" autocomplete="false" (input)="onInputChange($event)"
+                [(ngModel)]="repeatableFields[r].buildingInsured" 
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                placeholder="Insured Value (in Rupees)" (change)="checkcurrency('buildingInsured',$event, r, this)" maxlength="17"
+                onpaste="return false;" ondrop="return false;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Type of Building
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].typeOfBuilding" value="Residential"
+                [id]="'residential' + r">
+              <label [for]="'residential' + r">Residential</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].typeOfBuilding" value="Commercial"
+                [id]="'commercial' + r">
+              <label [for]="'commercial' + r">Commercial</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].typeOfBuilding" value="Industrial"
+                [id]="'industrial' + r">
+              <label [for]="'industrial' + r">Industrial</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Type of Construction
+        </div>
+        <div class="process-input">
+          <select class="form-select" id="TypeofConstruction" [(ngModel)]="repeatableFields[r].TypeofConstruction"
+            aria-label="Default select example" (change)="checkOptionVal($event, r)">
+            <!-- <option selected value="Load Bearing">Load Bearing</option> -->
+            <option selected value="Load bearing walls with RCC roof">Load bearing walls with RCC roof</option>
+            <option selected value="Load bearing walls with Tiled roof">Load bearing walls with Tiled roof</option>
+            <option selected value="Framed Structure">Framed Structure</option>
+            <option selected value="Precast Structure">Precast Structure</option>
+            <option selected value="Others">Others</option>
+            <!-- <option value="No">No</option> -->
+          </select>
+        </div>
+      </div>
+      <div *ngIf="repeatableFields[r].TypeofConstruction == 'Others' " class="process-row">
+        <div class="process-label">
+        </div>
+        <div class="process-input">
+          <textarea class="form-control" id="typeofConstructionTxt"
+            [(ngModel)]="repeatableFields[r].TypeofConstructionRemarks" type="text" autocomplete="false"
+            placeholder="Remarks"></textarea>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label two-lines">
+          Building to Compound wall - Adequate Footage Provided
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" name="compound{{ r }}" [(ngModel)]="repeatableFields[r].compound" value="Yes"
+                [checked]="true" [id]="'compoundYes'+ r">
+              <label [for]="'compoundYes'+ r">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="compound{{ r }}" [(ngModel)]="repeatableFields[r].compound" value="No" [id]="'compoundNo'+ r">
+              <label [for]="'compoundNo'+ r">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Apperance of Building
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].ApperanceOfBuilding" name="building{{ r }}" value="Common"
+                [checked]="true" [id]="'Common'+ r">
+              <label [for]="'Common'+ r">Common</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].ApperanceOfBuilding" name="building{{ r }}"
+                value="Attractive" [id]="'Attractive'+ r">
+              <label [for]="'Attractive'+ r">Attractive</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].ApperanceOfBuilding" name="building{{ r }}"
+                value="Aesthetic" [id]="'Aesthetic'+ r">
+              <label [for]="'Aesthetic'+ r">Aesthetic</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          <!-- (if any) has been removed -->
+          Quality of Construction
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" name="cunstruction{{ r }}" value="Good" [(ngModel)]="repeatableFields[r].Construction"
+                [id]="'cunstructionGood'+ r">
+              <label [for]="'cunstructionGood'+ r">Good</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="cunstruction{{ r }}" value="Bad" [(ngModel)]="repeatableFields[r].Construction"
+                [id]="'cunstructionBad'+ r">
+              <label [for]="'cunstructionBad'+ r">Bad</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- VRR-850 Alignment Issue For release-46 -->
+      <div class="process-row">
+        <div class="process-label two-lines">
+          Add Remarks
+        </div>
+        <div class="process-input">
+          <textarea [(ngModel)]="repeatableFields[r].Remarks" id="cunstructiontxt" class="form-control" type="text"
+            autocomplete="false" placeholder="Remarks"></textarea>
+        </div>
+      </div>
+
+
+      <div class="process-row">
+        <div class="process-label">
+          Maintanence of Building - Interior
+        </div>
+        <div class="process-input">
+          <select class="form-select" id="buildingInterior" [(ngModel)]="repeatableFields[r].BuildingInterior"
+            aria-label="Default select example">
+            <option selected value="Excellent">Excellent</option>
+            <option value="Average">Average</option>
+          </select>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Maintanence of Building - Exterior
+        </div>
+        <div class="process-input">
+          <select class="form-select" id="buildingExterior" [(ngModel)]="repeatableFields[r].BuildingExterior"
+            aria-label="Default select example">
+            <option selected value="Excellent">Excellent</option>
+            <option value="Average">Average</option>
+            <option value="New One">New One</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="process-row fullrow-add ">
+        <div class="process-label">
+          Year of Construction House / Apartment
+        </div>
+        <div class="process-input-add">
+          <div class="full-row added" *ngFor="let dynamic of repeatableFields[r]['dynamicArray']; let i = index;" [@FadeAnimation]>
+            <div class="row-add-wrapper">
+              <div class="input-col name-col">
+                <label>Floor Number</label>
+                <input class="form-control" type="text"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" readonly
+                  autocomplete="off" [disabled]="dynamicArrayd" [(ngModel)]="repeatableFields[r]['dynamicArray'][i].floor"
+                  (change)="floorNum(i,$event, r)" id="dynamicfloor{{r}}" value="" onpaste="return false;"
+                  ondrop="return false;">
+              </div>
+              <div class="input-col year-col">
+                <label>Year Constructed As Reported</label> 
+                <input class="form-control" type="text"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" maxlength="4"
+                  autocomplete="off" [disabled]="dynamicArrayd" [(ngModel)]="repeatableFields[r]['dynamicArray'][i].reported"
+                  id="dynamicreported" value="" onpaste="return false;" ondrop="return false;">
+              </div>
+              <div class="input-col year-col">
+                <label>Year Constructed As Observed</label>
+                <input class="form-control" type="text"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" maxlength="4"
+                  autocomplete="off" [disabled]="dynamicArrayd" [(ngModel)]="repeatableFields[r]['dynamicArray'][i].observed"
+                  id="dynamicobserved" value="" onpaste="return false;" ondrop="return false;">
+              </div>
+              <div class="input-col year-col">
+                <label>Year Constructed As Per Deed</label>
+                <input class="form-control" type="text"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" maxlength="4"
+                  autocomplete="off" [disabled]="dynamicArrayd" [(ngModel)]="repeatableFields[r]['dynamicArray'][i].deed" id="dynamicdeed"
+                  value="" onpaste="return false;" ondrop="return false;">
+              </div>
+              <div class="input-col">
+                <label>Year Completed</label>
+                <input class="form-control" type="text"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" maxlength="4"
+                  autocomplete="off" [disabled]="dynamicArrayd" [(ngModel)]="repeatableFields[r]['dynamicArray'][i].completed"
+                  id="dynamiccompleted" value="" onpaste="return false;" ondrop="return false;">
+              </div>
+            </div>
+            <div class="row-add-buttons">
+              <button class="delete-icon" (click)="deleteRow(i, r)"></button>
+              <button class="add-row-icon addbtn1" id="addbtn1{{r}}" [disabled]="addbtnd" (click)="addNewRow(r,i)"></button>
+             <!-- modified for VRR-934 -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-row fullrow-add ">
+        <div class="process-label">
+          <!-- label change for VRR-999 fix -->
+          Floor wise Plinth Area (Sq.ft)
+        </div>
+        <div class="process-input-add">
+          <div class="full-row added" *ngFor="let contact of repeatableFields[r]['contactArray']; let i = index;" [@FadeAnimation]>
+            <div class="row-add-wrapper">
+              <div class="input-col year-col">
+                <label>Floor Number</label>
+                <input class="form-control" type="text" onpaste="return false;" ondrop="return false;"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" readonly
+                  autocomplete="false" [disabled]="contactArrayc" [(ngModel)]="repeatableFields[r]['contactArray'][i].floor1" id="contactfloor{{r}}"
+                  value="">
+              </div>
+              <div class="input-col year-col">
+                <label> Roof </label>
+                <input class="form-control" type="text" autocomplete="false" [disabled]="contactArrayc"
+                  [(ngModel)]="repeatableFields[r]['contactArray'][i].roof" id="contactreported" value="">
+              </div>
+              <div class="input-col year-col">
+                <label>Plinth Area Main (sq. ft) </label>
+                <input class="form-control" type="text" (keyup)="PlinthAreaCal('Plinthval',i, r)"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                  autocomplete="off" [disabled]="contactArrayc" [(ngModel)]="repeatableFields[r]['contactArray'][i].plinthAreaMain"
+                  id="contactobserved{{r}}" value="" onpaste="return false;" ondrop="return false;">
+              </div>
+              <div class="input-col year-col">
+                <label>Plinth Area Cantilevered (sq. ft)</label>
+                <input class="form-control" type="text" (keyup)="PlinthAreaCal('Plinthval',i, r)"
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                  autocomplete="off" [disabled]="contactArrayc" [(ngModel)]="repeatableFields[r]['contactArray'][i].plinthAreaCantilevered" id="contactdeed{{r}}"
+                  value="" onpaste="return false;" ondrop="return false;">
+              </div>
+              <div class="input-col year-col">
+                <label>Plinth Area Total (sq. ft)</label>
+                <input class="form-control" type="text" (keyup)="PlinthAreaCal('Plinthval',i, r)" readonly
+                  onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                  autocomplete="false" [disabled]="contactArrayc" [(ngModel)]="repeatableFields[r]['contactArray'][i].plinthAreaTotal"
+                  id="contactcompleted{{r}}" value="" onpaste="return false;" ondrop="return false;">
+              </div>
+              <div class="input-col year-col">
+                <label>Room Details</label>
+                <input class="form-control" type="text" autocomplete="false" [disabled]="contactArrayc"
+                  [(ngModel)]="repeatableFields[r]['contactArray'][i].roomDetail" id="roomdetails" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row-add-wrapper">
+            <div class="input-col year-col" style="width:70% !important; text-align: end;">
+              <label>Plinth Area Total (sq. ft)</label>
+            </div>
+             <div class="input-col year-col"> 
+                <span style="font: normal normal 600 14px/17px 'Open Sans', sans-serif;">{{repeatableFields[r].plinthArea_Total_Main}}</span>
+              </div> 
+          </div>
+        </div>
+      </div>
+
+
+      <div class="process-row">
+        <div class="process-label">
+          Property in Liveable Condition
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" name="liveableCondition{{ r }}" [(ngModel)]="repeatableFields[r].liveableCondition" value="Yes" [checked]="true" [id]="'Yescondition' + r">
+              <label [for]="'Yescondition' + r">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="liveableCondition{{ r }}" [(ngModel)]="repeatableFields[r].liveableCondition" value="No" [id]="'Nocondition' + r">
+              <label [for]="'Nocondition' + r">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Occupied by
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].occupied" name="occupied{{ r }}"  value="Owner"
+                [checked]="true" id="Owner{{ r }}">
+              <label for="Owner{{ r }}">Owner</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].occupied" name="occupied{{ r }}"  value="Tenant" id="Tenant{{ r }}">
+              <label for="Tenant{{ r }}">Tenant</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].occupied" name="occupied{{ r }}"  value="Both" id="Both{{ r }}">
+              <label for="Both{{ r }}">Both</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].occupied" name="occupied{{ r }}"  value="Vacant" id="Vacant{{ r }}">
+              <label for="Vacant{{ r }}">Vacant</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label two-lines">
+          If Occupied by Tenant, Since how Long
+        </div>
+        <div class="process-input">
+          <input class="form-control" type="text" [(ngModel)]="repeatableFields[r].occupiedbyTenant"
+            id="occupiedbyTenant" autocomplete="false" value="">
+        </div>
+      </div>
+
+      <div class="process-row">
+        <div class="process-label two-lines">
+          If Rented, How long the current tenant has been residing?
+        </div>
+        <div class="process-input">
+          <input class="form-control" type="text" [(ngModel)]="repeatableFields[r].currentTenant" id="currentTenant"
+            autocomplete="false" value="">
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label two-lines">
+          Proof of Lease / Rent Agreement
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].Proof" name="Proof{{ r }}" value="Yes" checked id="ProofYes{{ r }}"
+                (change)="ShowHideInsured($event, 'dynamicFile2', r, this)">
+              <label for="ProofYes{{ r }}">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" [(ngModel)]="repeatableFields[r].Proof" name="Proof{{ r }}" value="No" id="ProofNo{{ r }}"
+                (change)="ShowHideInsured($event, 'dynamicFile2', r, this)">
+              <label for="ProofNo{{ r }}">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="process-row" id="Prooftxt">
+        <div class="process-label">
+          Attach lease / rent agreement copy
+            </div>
+            <div class="process-input">
+                <div class="upload-file">
+                  <div class="input-file-wrapper" id="disablerentpdf">
+                    <input type='file' id="rentAgreementpdf" single
+                    accept="image/jpg,image/jpeg,application/pdf"
+                    class="upload_btn" (input)="fileuploadName($event,2,0)">
+                    <label id="filename2" for="rentAgreementpdf" >{{filename2}}</label>
+                    <label  class="upload-btn" id="uploadButton2" for="rentAgreementpdf" *ngIf="uploadButton2">Browse</label>
+                    <button type="button" class="btn-close" id="clsbtn1" aria-label="Close"
+                      (click)="closeUpload1(2)" *ngIf="closebtntrue2"></button>
+                    <a class="doc-btn upload-view" id="rentAgreementpdfview"
+                      (click)="View($event,2)" target="_blank" for="rentAgreementpdfview" *ngIf="viewButton2">View </a>
+                  </div>
+                </div>
+              </div>
+      </div> -->
+
+              <div class="process-row" id="dynamicFile2{{r}}" *ngIf="repeatableFields[r].Proof == 'Yes' ">
+                <div class="process-label">
+                  Attach lease / rent agreement copy
+                </div>
+                <div class="process-input">
+                  <div class="image-details">
+                    <div class="upload-file">
+                      <div class="input-file-wrapper">
+                        <input type='file' id="rentAgreement{{r}}" single accept="image/jpg,image/jpeg,application/pdf"
+                          (change)="fileuploadName1($event,2, r)" multiple class="upload_btn">
+                        <label id="idfile-upload2" for="rentAgreement{{r}}" class="upload-btn">Browse</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- *ngIf="this.agreement" *ngIf="repeatableFields[r]['dynamicFile2']"-->
+              <div class="process-row" *ngIf="repeatableFields[r]['dynamicFile2'].length != 0">
+                <div class="process-label">
+                </div>
+                <div class="attachment-div ">
+                  <div class="full-row added" *ngFor="let dynamic of repeatableFields[r]['dynamicFile2']; let i = index"
+                    [@FadeAnimation]>
+                    <div class="">
+                      <span id="filename" class="cpointer" for="Attachment" (click)="View1(i,2, r)">{{
+                        repeatableFields[r]['dynamicFile2'][i]?.fileName
+                        }}</span>
+                      <button type="button" (click)="closeUpload11(i,2, r)" class="btn-close" id="clsbtn1"
+                        aria-label="Close"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Gross Monthly rent (in Rupees)
+                </div>
+                <div class="process-input">
+                  <input class="form-control" type="text" maxlength="17" onpaste="return false;" ondrop="return false;"
+                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" (input)="onInputChange($event)"
+                    [(ngModel)]="repeatableFields[r].GrossMonthrent" id="grossMonthrent{{r}}" autocomplete="off"
+                    (change)="checkcurrency('GrossMonthrent',$event, r, this)" value="">
+                </div>
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Gross Advance Amount (in Rupees)
+                </div>
+                <div class="process-input">
+                  <input class="form-control" type="text" maxlength="17" onpaste="return false;" ondrop="return false;"
+                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" (input)="onInputChange($event)"
+                    [(ngModel)]="repeatableFields[r].GrossAdvanceAmount" id="grossAdvanceAmount" autocomplete="off"
+                    (change)="checkcurrency('GrossAdvanceAmount',$event , r, this)" value="">
+                </div>
+              </div>
+              <!-- /* added by Saranya for collapse panel UI-- Started */-->
+              <div class="process-label" style="font-weight: bold;">
+                Drawing Approval
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Date of Issue
+                </div>
+                <div class="process-input">
+                  <input class="form-control datepicker" id='issuedate{{r}}' #datepickerYMD="bsDatepicker" onpaste="return false;"
+                    ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [bsValue]="IssueDate"
+                    placeholder="Date of Issue" readonly  [(ngModel)]="repeatableFields[r].Dateofissue"  (click)="minenddate(r)"
+                    onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;">
+                </div>
+        
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Validity of Layout
+                </div>
+                <div class="process-input">
+                  <div class="radio">
+                    <div class="radio_row">
+                      <input type="radio" name="validityLayout{{r}}" [(ngModel)]="repeatableFields[r].validityLayout" value="Yes" id="validityYes{{r}}"
+                        [checked]="true">
+                      <label for="validityYes{{r}}">Yes</label>
+                    </div>
+                    <div class="radio_row">
+                      <input type="radio" name="validityLayout{{r}}" [(ngModel)]="repeatableFields[r].validityLayout" value="No" id="validityNo{{r}}">
+                      <label for="validityNo{{r}}">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Drawing Approved Authority
+                </div>
+                <div class="process-input">
+                  <div class="radio">
+                    <div class="radio_row">
+                      <input type="radio" name="approvedAuthority{{r}}" [(ngModel)]="repeatableFields[r].approvedAuthority" value="DTCP"
+                        [checked]="true" id="dtcp{{r}}">
+                      <label for="dtcp{{r}}">DTCP</label>
+                    </div>
+                    <div class="radio_row">
+                      <input type="radio" name="approvedAuthority{{r}}" [(ngModel)]="repeatableFields[r].approvedAuthority" value="CMDA" id="cmda{{r}}">
+                      <label for="cmda{{r}}">CMDA</label>
+                    </div>
+                    <div class="radio_row">
+                      <input type="radio" name="approvedAuthority{{r}}" [(ngModel)]="repeatableFields[r].approvedAuthority"
+                        value="Corporation(Local Bodies)" id="Corporation{{r}}">
+                      <label for="Corporation{{r}}">Corporation(Local Bodies)</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Additional Approving Authorities (if any)
+                </div>
+                <div class="process-input">
+                  <textarea class="form-control" [(ngModel)]="repeatableFields[r].approvingAuthorities" id="approvingAuthorities{{r}}" type="text"
+                    autocomplete="false" placeholder=""></textarea>
+                </div>
+              </div>
+        
+              <!-- VRR-912 swaped field from Valuation Page for release-46.1-->
+              <div class="process-row">
+                <div class="process-label">
+                  Approval Date
+                </div>
+                <div class="process-input">
+                  <input class="form-control datepicker" id='ApprovalDate{{r}}' #datepickerYMD="bsDatepicker" onpaste="return false;"
+                    ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [bsValue]="ApprovalDate"
+                    placeholder="Approval Date" readonly [(ngModel)]="repeatableFields[r].ApprovalDate"  (click)="minenddate(r)"
+                    onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;">
+                </div>
+                
+              </div>
+              <div class="process-row">
+                <div class="process-label">
+                  Approval Validity from Date
+                </div>
+                <div class="process-input">
+                  <input class="form-control datepicker" id='ApprovalValidityDate{{r}}' #datepickerYMD="bsDatepicker"
+                    onpaste="return false;" ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                    [minDate]="repeatableFields[r].ApprovalDate"
+                    [bsValue]="ApprovalValidityDate" placeholder="From Date" readonly   (click)="minenddate(r)"
+                    onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                    [(ngModel)]="repeatableFields[r].ApprovalValidityStartDate" [ngModelOptions]="{standalone: true}">
+                </div>
+                
+              </div>
+              <!-- Added a new field for Approved validity End data -->
+              <div class="process-row">
+                <div class="process-label">
+                  Approval Validity to Date
+                </div>
+                <div class="process-input">
+                  <input class="form-control datepicker" id='ApprovalValidityDate2{{r}}' #datepickerYMD="bsDatepicker"
+                    onpaste="return false;" ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                    placeholder="To Date" readonly 
+                    onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                  (click)="minenddate(r)" [(ngModel)]="repeatableFields[r].ApprovalValidityEndDate"
+                    [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+        
+              <div class="process-row">
+                <div class="process-label two-lines">
+                  Additional Notes on Approval
+                </div>
+                <div class="process-input">
+                  <textarea class="form-control" [(ngModel)]="repeatableFields[r].additionalNotesAppro" id="AdditionalNotesAppro{{r}}" type="text"
+                    autocomplete="false" placeholder="">
+                  </textarea>
+                </div>
+              </div>
+              <!-- VRR-912 swaped field from Valuation Page for release-46.1-->
+        
+              <div class="process-row">
+                <div class="process-label two-lines">
+                  Completion Certificate Number
+                </div>
+                <div class="process-input">
+                  <input class="form-control" type="text" [(ngModel)]="repeatableFields[r].completionCertificate" id="completionCertificate{{r}}"
+                    autocomplete="false" value="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- /* added by Saranya for collapse panel UI-- Ended */-->
+    <!-- added for VRR-787 -->
+
+    <div class="process-row"   style="margin: 15px 0 0">
+      <div class="process-label">
+        Area of Building considered for valuation (in Sq.ft)
+      </div>
+      <div class="process-input">
+        <input class="form-control" disabled [(ngModel)]="TotalPlinthArea" id="TotalPlinthArea" type="text" autocomplete="false"
+          placeholder="Area of Building considered for valuation ">
+      </div>
+    </div>
+<form [formGroup]="buildingdetails">
+        <!--  <div class="process-label" style="font-weight: bold;">
+        Drawing Approval
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Date of Issue
+        </div>
+        <div class="process-input">
+          <input class="form-control datepicker" id='issuedate' #datepickerYMD="bsDatepicker" onpaste="return false;"
+            ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [bsValue]="IssueDate"
+            placeholder="Date of Issue" readonly
+            onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;">
+        </div>
+
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Validity of Layout
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" name="validityLayout" formControlName="validityLayout" value="Yes" id="validityYes"
+                [checked]="true">
+              <label for="validityYes">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="validityLayout" formControlName="validityLayout" value="No" id="validityNo">
+              <label for="validityNo">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Drawing Approved Authority
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" name="approvedAuthority" formControlName="approvedAuthority" value="DTCP"
+                [checked]="true" id="dtcp">
+              <label for="dtcp">DTCP</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="approvedAuthority" formControlName="approvedAuthority" value="CMDA" id="cmda">
+              <label for="cmda">CMDA</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" name="approvedAuthority" formControlName="approvedAuthority"
+                value="Corporation(Local Bodies)" id="Corporation">
+              <label for="Corporation">Corporation(Local Bodies)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Additional Approving Authorities (if any)
+        </div>
+        <div class="process-input">
+          <textarea class="form-control" formControlName="approvingAuthorities" id="approvingAuthorities" type="text"
+            autocomplete="false" placeholder=""></textarea>
+        </div>
+      </div> -->
+
+      <!-- VRR-912 swaped field from Valuation Page for release-46.1-->
+       <!--  <div class="process-row">
+        <div class="process-label">
+          Approval Date
+        </div>
+        <div class="process-input">
+          <input class="form-control datepicker" id='ApprovalDate' #datepickerYMD="bsDatepicker" onpaste="return false;"
+            ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [bsValue]="ApprovalDate"
+            placeholder="Approval Date" readonly
+            onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;">
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Approval Validity from Date
+        </div>
+        <div class="process-input">
+          <input class="form-control datepicker" id='ApprovalValidityDate' #datepickerYMD="bsDatepicker"
+            onpaste="return false;" ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+            [bsValue]="ApprovalValidityDate" laceholder="From Date" readonly
+            onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+            [(ngModel)]="approvalValidityStartDate" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div> -->
+      <!-- Added a new field for Approved validity End data -->
+     <!--  <div class="process-row">
+        <div class="process-label">
+          Approval Validity to Date
+        </div>
+        <div class="process-input">
+          <input class="form-control datepicker" id='ApprovalValidityDate2' #datepickerYMD="bsDatepicker"
+            onpaste="return false;" ondrop="return false;" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+            placeholder="To Date" readonly
+            onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+            [minDate]="ApprovalValidityDate" (click)="minenddate()" [(ngModel)]="ApprovalValidityEndDate"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+
+      <div class="process-row">
+        <div class="process-label two-lines">
+          Additional Notes on Approval
+        </div>
+        <div class="process-input">
+          <textarea class="form-control" formControlName="additionalNotesAppro" id="AdditionalNotesAppro" type="text"
+            autocomplete="false" placeholder="">
+          </textarea>
+        </div>
+      </div> -->
+      <!-- VRR-912 swaped field from Valuation Page for release-46.1-->
+
+          <!-- <div class="process-row">
+        <div class="process-label two-lines">
+          Completion Certificate Number
+        </div>
+        <div class="process-input">
+          <input class="form-control" type="text" formControlName="completionCertificate" id="completionCertificate"
+            autocomplete="false" value="">
+        </div>
+      </div> -->
+      <div class="process-row">
+        <div class="process-label" style="font-weight: bold;">
+          Project Approval
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Is the Project Approved?
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" formControlName="projectApproved" name="projectApproved" value="Yes" id="approvedYes">
+              <label for="approvedYes">Yes</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" formControlName="projectApproved" name="projectApproved" value="No" id="approvedNo"
+                [checked]="true">
+              <label for="approvedNo">No</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" formControlName="projectApproved" name="projectApproved" value="Approval Pending"
+                id="apPending">
+              <label for="apPending">Approval Pending</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Approving Authority
+        </div>
+        <div class="process-input">
+          <div class="radio">
+            <div class="radio_row">
+              <input type="radio" formControlName="approvAuthority" name="approvAuthority" value="Panchayat"
+                id="ApprovePanchayat">
+              <label for="ApprovePanchayat">Panchayat</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" formControlName="approvAuthority" name="approvAuthority" value="Municipality"
+                id="ApproveMunicipality" [checked]="true">
+              <label for="ApproveMunicipality">Municipality</label>
+            </div>
+            <div class="radio_row">
+              <input type="radio" formControlName="approvAuthority" name="approvAuthority" value="Corporation"
+                id="ApproveCorporation">
+              <label for="ApproveCorporation">Corporation</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-row">
+        <div class="process-label">
+          Approval No
+        </div>
+        <div class="process-input">
+          <input class="form-control" formControlName="approvalNo" id="approvalNo" type="text" autocomplete="false"
+            placeholder="Enter Approval No ">
+        </div>
+      </div>
+
+
+      <!-- adding divya -->
+     
+  
+
+
+    </form>
+    <div class="process-row">
+      <div class="process-label">
+      </div>
+      <div class="process-input">
+        <div class="button-row">
+          <button type="button" class="form-button" id="savebtn1" (click)="fnsaveBuilddetails('continue')">Save &
+            Continue
+            <svg id="right-rotate" xmlns="http://www.w3.org/2000/svg" width="6.6" height="10" viewBox="0 0 6.6 10">
+              <g id="noun_Arrow_2541068" transform="translate(6.6) rotate(90)">
+                <path id="Path_2" data-name="Path 2"
+                  d="M4.994,0,9.652,4.658A1.127,1.127,0,0,1,8.058,6.252L4.994,3.2,1.942,6.252A1.127,1.127,0,0,1,.348,4.658Z"
+                  fill="#3f3fe6" />
+              </g>
+            </svg>
+          </button>
+          <button type="button" class="prev-btn save-btn" id="savebtn" (click)="fnsaveBuilddetails('save')"> Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

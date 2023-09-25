@@ -1,0 +1,441 @@
+<div class="right_content_area new_right_content" >
+  <h3>General Info</h3>
+  <div class="process-form-wrapper">
+
+    <div class="process-row">
+      <div class="process-label">
+        Valuation Purpose
+      </div>
+      <div class="process-input">
+        <input class="form-control" type="text" id="ValuationPurpose" ngDefaultControl
+          [(ngModel)]="ValuationPurpose" autocomplete="false" value="valuationPurpose">
+      </div>
+      <!-- <select class="form-select" aria-label="Default select example">
+              <option selected value="Home Extension Loan">Home Extension Loan</option>
+              <option value="Home Loan">Home Loan</option>
+            </select>
+          </div>-->
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Inspection Date
+      </div>
+      <div class="process-input">
+        <input class="form-control datepicker" onpaste="return false;" ondrop="return false;"
+          onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" #datepickerYMD="bsDatepicker"
+          bsDatepicker [minDate]="mininspedate" (click)="mininspectdate()" id="InspectionDate" ngDefaultControl readonly
+          [(ngModel)]="InspectionDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Valuation Date
+      </div>
+      <div class="process-input">
+        <input class="form-control datepicker" onpaste="return false;" ondrop="return false;"
+          onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" #datepickerYMD="bsDatepicker"
+          bsDatepicker [minDate]="minstartdate" (click)="minvaluationdate()" id="ValuationDate" ngDefaultControl readonly
+          [(ngModel)]="ValuationDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Owner Details *
+      </div>
+      <div class="process-input-add">
+        <div id="dynamicdiv">
+          <div class="full-row added " *ngFor="let dynamic of dynamicArray; let i = index;" id="dynamicArray"
+            >
+            <div class="row-add-wrapper">
+              <div class="input-col name-col">
+                <label>Owner Name</label>
+                <input class="form-control" type="text" autocomplete="false" id="Name" value="" ngDefaultControl
+                  [(ngModel)]="dynamicArray[i].name">
+              </div>
+              <div class="input-col address-col">
+                <label>Owner Address</label>
+                <input class="form-control" type="text" autocomplete="false" id="Address" value="" ngDefaultControl
+                  [(ngModel)]="dynamicArray[i].address">
+              </div>
+              <div class="input-col">
+                <label>Phone No.</label>
+                <input class="form-control" onpaste="return false;" ondrop="return false;" minlength="10" maxlength="10" (keypress)="blockSpecialChar($event)" type="text"
+                  autocomplete="off" id="phone" value="" ngDefaultControl [(ngModel)]="dynamicArray[i].phone">
+              </div>
+              <div class="input-col">
+                <label>% of Shares</label>
+                <!-- flag added for VRR-975 issue fix -->
+                <input class="form-control" onpaste="return false;" ondrop="return false;" type="number" autocomplete="off" maxlength="3"  (input)="CalculateShare(i,1)"  id="share{{i}}"
+                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" id="shares" value="" ngDefaultControl
+                  [(ngModel)]="dynamicArray[i].shares">
+              </div>
+            </div>
+            <div class="row-add-buttons">
+              <button class="delete-icon" id='add' (click)="deleteRow(i)"></button>
+              <button class="add-row-icon" id='delete' (click)="addNewRow()"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Duration of Owning
+      </div>
+      <div class="process-input">
+        <input class="form-control" id="owningproperty" ngDefaultControl [(ngModel)]="owningproperty" type="text"
+          autocomplete="false">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        List of Documents Produced for Perusal
+
+      </div>
+      <div class="process-input">
+        <textarea class="form-control" id="Listdocumentsperusal" ngDefaultControl [(ngModel)]="Listdocumentsperusal"
+          type="text" autocomplete="false" placeholder="List of Documents"></textarea>
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Brief Description of the Property
+        <span class="sub-text">(Including Lease / Free Hold)</span>
+      </div>
+      <div class="process-input">
+        <textarea class="form-control" id="BriefDescriptionProperty" ngDefaultControl
+          [(ngModel)]="BriefDescriptionProperty" type="text" autocomplete="false"
+          placeholder="Description"></textarea>
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Scope of Valuation
+      </div>
+      <div class="process-input">
+        <input class="form-control" id="ScopeValuation" ngDefaultControl [(ngModel)]="ScopeValuation" type="text"
+          autocomplete="false">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Name of the Bank
+      </div>
+      <div class="process-input">
+        <input class="form-control" id="Nameofbank" ngDefaultControl [(ngModel)]="Nameofbank" type="text"
+          autocomplete="false">
+        <!-- <select class="form-select" aria-label="Default select example">
+             <option selected value="HDFC">HDFC</option>
+             <option value="ICICI">ICICI</option>
+           </select> -->
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label two-lines">
+        Branch of the Bank for which the Appraisal is being done
+      </div>
+      <div class="process-input">
+        <input class="form-control" type="text" ngDefaultControl [(ngModel)]="Branchbankappraisal"
+          id="Branchbankappraisal" autocomplete="false" value="IOV">
+        <!-- <select class="form-select"   [(ngModel)]="ValuationPurpose" aria-label="Default select example">
+              <option selected value="HDFC - Anna Nagar">HDFC - Anna Nagar</option>
+              <option value="HDFC - Kodambakkam">HDFC - Kodambakkam</option>
+            </select> -->
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Valuer's Association Name
+      </div>
+      <div class="process-input" *ngIf="!associationedit">
+        <input class="form-control" type="text" disabled   ngDefaultControl  [(ngModel)]="Valuerassociationdropdown" id=" Valuerassociationdropdown" autocomplete="false" value="IOV">
+      </div>
+      <div class="process-input" *ngIf="associationedit">
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="Valuerassociationdropdown"
+          id="Valuerassociationdropdown">
+          <option [value]="undefined" disabled>Select Name</option>
+          <option [selected]="true" *ngFor="let PropertyDesc of valueassociation2" [ngValue]="PropertyDesc.name">
+            {{PropertyDesc.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label two-lines">
+        Persons Accompanied while visiting the site
+      </div>
+      <div class="process-input">
+        <input class="form-control" type="text" ngDefaultControl [(ngModel)]="Personsvisitingsite"
+          id="Personsvisitingsite" autocomplete="false" placeholder="Persons Accompanied">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Project Site Name
+      </div>
+      <div class="process-input">
+        <input class="form-control" type="text" ngDefaultControl [(ngModel)]="PropertySiteName"
+          id="PropertySiteName" autocomplete="false" value="Prestige Silver Springs">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Property Location
+      </div>
+      <div class="process-input">
+        <div class="radio">
+          <div class="radio_row">
+            <input type="radio" disabled name="property" value="Metro" ngDefaultControl [(ngModel)]="property"
+              id="Metro" >
+            <label for="Metro">Metro</label>
+          </div>
+          <div class="radio_row">
+            <input type="radio" disabled name="property" value="Town" ngDefaultControl [(ngModel)]="property"
+              id="Town" >
+            <label for="Town">Town</label>
+          </div>
+          <div class="radio_row">
+            <input type="radio" disabled name="property" value="Village" ngDefaultControl [(ngModel)]="property"
+              id="Village" >
+            <label for="Village">Village</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Property Type
+      </div>
+      <div class="process-input">
+        <input class="form-control" type="text" id="PropertyType" disabled ngDefaultControl
+          [(ngModel)]="PropertyType" autocomplete="false" placeholder="Persons Accompanied"
+          [ngStyle]="{'cursor' : 'not-allowed'}">
+        <!-- <select class="form-select" aria-label="Default select example">
+              <option selected value="Apartment">Apartment</option>
+              <option value="Land">Land</option>
+            </select> -->
+      </div>
+    </div>
+    <!-- <div class="process-row">
+      <div class="process-label">
+        Unit of Measurement <sup>*</sup>
+      </div>
+      <div class="process-input" *ngIf="isDisabled">
+        <input class="form-control" type="text" disabled   ngDefaultControl  [(ngModel)]="Measure" id=" UnitOfMeasure" autocomplete="false" >
+      </div>
+      <div class="process-input" *ngIf="!isDisabled">
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="Measure"
+          id="UnitOfMeasure">
+          <option [value]="undefined" selected disabled>--Select--</option>
+          <option  *ngFor="let measure of UnitOfMeasure"  [value]="measure" >
+            {{measure}}</option>
+        </select>
+      </div>
+    </div> -->
+    <div class="process-row">
+      <div class="process-label" style="font-weight: bold;">
+        Hypothecation Details
+      </div>
+      <div class="process-input">
+
+      </div>
+    </div>
+    <!-- VRR-921 - added by Naveen - start here -->
+    <div class="process-row">
+      <div class="process-label">
+        Hypothecation Amount (In Rupees)
+      </div>
+      <div class="process-input">
+        <input class="form-control"  type="text" id="hypothecationAmount" ngDefaultControl (input)="onInputChange($event)" maxlength="17"
+          [(ngModel)]="hypothecationAmount" autocomplete="false" placeholder="" onpaste="return false;" ondrop="return false;"
+          onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+          (change)="convert_currency_format('hypothecationAmount')" >
+      </div>
+    </div>
+    <!-- VRR-921 - added by Naveen - ending here -->
+    <div class="process-row">
+      <div class="process-label">
+        Hypothecation Start Date
+      </div>
+      <div class="process-input">
+        <input class="form-control datepicker"  onpaste="return false;" ondrop="return false;"
+        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" #datepickerYMD="bsDatepicker"
+        bsDatepicker id="startDate" ngDefaultControl readonly
+        [(ngModel)]="startDate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Hypothecation End Date
+      </div>
+      <div class="process-input">
+        <input class="form-control datepicker"  onpaste="return false;" ondrop="return false;"
+        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" #datepickerYMD="bsDatepicker"
+        bsDatepicker [minDate]="startDate" readonly (click)="minenddate()" id="endDate" ngDefaultControl
+        [(ngModel)]="endDate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" >
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Hypothecation To
+      </div>
+      <div class="process-input">
+        <input class="form-control" type="text"  id="withWhom" ngDefaultControl
+          [(ngModel)]="withWhom" autocomplete="false" >
+      </div>
+    </div>
+    <!-- VRR-922 - starting here -->
+    <div class="process-row">
+      <div class="process-label" style="font-weight: bold;">
+        Hypothecation Status
+      </div>
+      <div class="process-input">
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+        Hypothecation Status
+      </div>
+      <div class="process-input">
+        <div class="radio">
+          <div class="radio_row">
+            <input type="radio" (change)="HypothecationStatus(1)" name="hypothecationStatus"  value="Valid" ngDefaultControl [(ngModel)]="hypothecationStatus"
+              id="Valid" >
+            <label for="Valid">Valid</label>
+          </div>
+          <div class="radio_row">
+            <input type="radio" (change)="HypothecationStatus(1)" name="hypothecationStatus"  value="Closed" ngDefaultControl [(ngModel)]="hypothecationStatus"
+              id="Closed" >
+            <label for="Closed">Closed</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationStatusValid" >
+      <div class="process-label">
+        Pending Amount (In Rupees)
+      </div>
+      <div class="process-input">
+        <input class="form-control"  type="text" id="hypothecationPendingAmount" ngDefaultControl (input)="onInputChange($event)" maxlength="17"
+          [(ngModel)]="hypothecationDocValue" autocomplete="false" placeholder="" onpaste="return false;" ondrop="return false;"
+          onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+          (change)="convert_currency_format('hypothecationPendingAmount')" >
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationStatusClosed" >
+      <div class="process-label">
+        Closed Date
+      </div>
+      <div class="process-input">
+        <input class="form-control datepicker"  onpaste="return false;" ondrop="return false;"
+        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" #datepickerYMD="bsDatepicker"
+        bsDatepicker readonly id="closedDate" ngDefaultControl
+        [(ngModel)]="closedDate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" >
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationStatusClosed" >
+      <div class="process-label">
+        Closing Amount (In Rupees)
+      </div> 
+      <div class="process-input">
+        <input class="form-control"  type="text" id="closingAmount" ngDefaultControl (input)="onInputChange($event)" maxlength="17"
+          [(ngModel)]="closingAmount" autocomplete="false" placeholder="" onpaste="return false;" ondrop="return false;"
+          onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+          (change)="convert_currency_format('closingAmount')" >
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationStatusClosed" >
+      <div class="process-label">
+        Hypothecation Cancelled
+      </div>
+      <div class="process-input">
+        <div class="radio">
+          <div class="radio_row">
+            <input type="radio" name="Hypothecated"  value="HypothecatedYes" ngDefaultControl [(ngModel)]="Hypothecated"
+              id="Hypothecated_Cancel_Yes" (change)="HypothecationStatus(2)">
+            <label for="Hypothecated_Cancel_Yes">Yes</label>
+          </div>
+          <div class="radio_row">
+            <input type="radio" name="Hypothecated"  value="HypothecatedNo" ngDefaultControl [(ngModel)]="Hypothecated"
+              id="Hypothecated_Cancel_No" (change)="HypothecationStatus(2)">
+            <label for="Hypothecated_Cancel_No">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationCancelYes">
+      <div class="process-label">
+        Cancelled Date
+      </div>
+      <div class="process-input">
+        <input class="form-control datepicker"  onpaste="return false;" ondrop="return false;"
+        onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" #datepickerYMD="bsDatepicker"
+        bsDatepicker readonly id="hypothcationCancelDate" ngDefaultControl
+        [(ngModel)]="hypothcationCancelDate" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" >
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationCancelYes">
+      <div class="process-label">
+        Hypothecation Documents (Pdf/JPG)
+      </div>
+      <div class="process-input">
+          <div class="image-details">
+              <div class="upload-file">
+                <div class="input-file-wrapper">
+                  <label id="file_upload01" for="ExtraDocuments" class="upload-btn">Browse</label>
+                  <input type='file' id="ExtraDocuments" single accept="image/jpg,image/jpeg,application/pdf"
+                     (change)="fileuploadName1($event,1)" multiple
+                    class="upload_btn">
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+    <div class="process-row" *ngIf="HypothicationCancelYes && hypothcationCancelDoc.length != 0">
+      <div class="process-label" style="min-width: 290px;"></div>
+      <div class="attachment-div">
+        <div class="full-row added" *ngFor="let dynamic of hypothcationCancelDoc; let i = index">
+          <div class="">
+          <span id="filename" class="filename" for="Attachment" (click)="View1(i,1)">{{
+            dynamic?.fileName
+            }}</span>
+          <button type="button" (click)="closeUpload11(i,1)" class="btn-close" id="clsbtn1"
+            aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- VRR-922 - ending here -->
+    <div class="process-row">
+      <div class="process-label">
+        Additional Information
+      </div>
+      <div class="process-input">
+        <textarea class="form-control" id="currentstatusdetail"  ngDefaultControl [(ngModel)]="currentstatusdetail"
+        type="text" autocomplete="false" placeholder="" ></textarea>
+      </div>
+    </div>
+    <div class="process-row">
+      <div class="process-label">
+
+      </div>
+      <div class="process-input">
+        <div class="button-row">
+          <button type="button" class="form-button" id='save1' (click)="SaveGeneralDetails('continue')">Save &
+            Continue
+            <svg id="right-rotate" xmlns="http://www.w3.org/2000/svg" width="6.6" height="10" viewBox="0 0 6.6 10">
+              <g id="noun_Arrow_2541068" transform="translate(6.6) rotate(90)">
+                <path id="Path_2" data-name="Path 2"
+                  d="M4.994,0,9.652,4.658A1.127,1.127,0,0,1,8.058,6.252L4.994,3.2,1.942,6.252A1.127,1.127,0,0,1,.348,4.658Z"
+                  fill="#3f3fe6" />
+              </g>
+            </svg>
+          </button>
+          <button type="button" id='save' (click)="SaveGeneralDetails('save')" class="prev-btn save-btn"> Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
